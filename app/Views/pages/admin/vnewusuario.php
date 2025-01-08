@@ -36,7 +36,7 @@
         </td>
 
         <td>
-            <?php echo form_dropdown('tipo', ['cliente', 'admin', 'vendedor'], ['class' => "form-control"]); ?>
+            <?php echo form_dropdown('tipo', ['admin' => "admin", 'cliente' => 'cliente', 'vendedor' => 'vendedor'], ['class' => "form-control"]); ?>
         </td>
 
 
@@ -44,7 +44,10 @@
 </table>
 <?php
 echo form_submit('adduser', 'Añadir', ["class" => "btn btn-primary"]);
-echo form_close(); 
-if(isset($data)) {
-    echo var_dump($data);
-}?>
+echo form_close();
+if (isset($form)) {
+    echo var_dump($form);
+}
+if (isset($err)) {
+    echo '<p style="color:red;">' . $err . '</p>';
+} ?>

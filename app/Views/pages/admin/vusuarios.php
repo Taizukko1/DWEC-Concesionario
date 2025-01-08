@@ -1,15 +1,23 @@
+<?php
+
+use App\Models\ModeloClientes;
+use App\Models\ModeloVendedores;
+
+$modeloVendedor = new ModeloVendedores();
+$modeloCliente = new ModeloClientes();
+?>
 <table class="table">
     <tr>
         <td class="table-warning">
-            Admin
+            <a class="link-underline link-underline-opacity-0" href="<?php echo site_url('admin/Usuarios/Tipo/0') ?>">Admin</a>
         </td>
 
         <td class="table-info">
-            Vendedor
+            <a class="link-underline link-underline-opacity-0" href="<?php echo site_url('admin/Usuarios/Tipo/1') ?>">Vendedor</a>
         </td>
 
         <td>
-            Cliente
+            <a class="link-underline link-underline-opacity-0" href="<?php echo site_url('admin/Usuarios/Tipo/2') ?>">Cliente</a>
         </td>
     </tr>
 </table>
@@ -68,11 +76,19 @@
                 </td>
 
                 <?php if ($usuario->tipo != 'admin') { ?>
-                    <td><a href="#"><i class="bi bi-x-circle-fill tex-danger"></i></a></td>
-                    <td><a href="#"><i class="bi bi-pencil"></i></a></td>
+                    <?php if ($usuario->tipo === 'vendedor') { ?>
+                        <th>Ventas</th>
+                        <td><?php echo $modeloVendedor->getVentas($usuario->uid); ?></td>
+                    <?php } ?>
+                    <?php if ($usuario->tipo === 'cliente') { ?>
+                        <th>Gastado</th>
+                        <td><?php echo $modeloCliente->getGasto($usuario->uid); ?>€</td>
+                    <?php } ?>
+                    <td><a href="<?php echo site_url('admin/Usuarios/Borrar/') . $usuario->uid?>"><i class="bi bi-x-circle-fill tex-danger"></i></a></td>
+                    <td><a href="<?php echo site_url('admin/Usuarios/Actualizar/') . $usuario->uid?>"><i class="bi bi-pencil"></i></a></td>
                 <?php } ?>
             </tr>
         <?php } ?>
     </tbody>
 </table>
-<a href="<?php echo site_url('admin/Usuarios/Add')?>"><i class="bi bi-plus-circle-fill"></i></a>
+<a href="<?php echo site_url('admin/Usuarios/Add') ?>"><i class="bi bi-plus-circle-fill"></i></a>

@@ -4,15 +4,15 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class ModeloVendedores extends Model
+class ModeloVentas extends Model
 {
-    protected $table            = 'vendedores';
-    protected $primaryKey       = 'uid';
+    protected $table            = 'modeloventas';
+    protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
-    protected $returnType       = 'object';
+    protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['uid', 'ventas'];
+    protected $allowedFields    = [];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
@@ -43,8 +43,4 @@ class ModeloVendedores extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
-    public function getVentas($uid)
-    {
-        return $this->where('uid', $uid)->findColumn('ventas')[0];
-    }
 }

@@ -29,19 +29,20 @@ class CLogin extends BaseController
                 return $this->cargar_vista('pages/vlogin', $data);
             }
             //Contraseña incorrecta
-            if (password_verify($pwd, $this->modeloUsuarios->where('email', $email)->findColumn('pass')[0])) {
+            if (password_verify($pwd, $this->modeloUsuarios->where('email', $email)->findColumn('pass')[0]) === 1) {
                 $data["err"] = "Contraseña incorrecta";
                 return $this->cargar_vista('pages/vlogin', $data);
             }
+            $id = $this->modeloUsuarios->where('email', $email)->findColumn('uid')[0];
             switch ($this->modeloUsuarios->getTipo($email)) {
                 case 'admin':
-                    $this->session->set('admin', ["commits" => []]);
+                    $this->session->set('admin', ["id" => $id,"commits" => []]);
                     break;
                 case 'vendedor':
-                    $this->session->set('vendedor', ["ventas" => 0]);
+                    $this->session->set('vendedor', ["id" => $id,"ventas" => 0]);
                     break;
                 default:
-                    $this->session->set('user', ["gastado" => 0]);
+                    $this->session->set('user', ["id" => $id,"gastado" => 0]);
                     break;
             }
             return redirect()->to(site_url());

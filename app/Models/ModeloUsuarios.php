@@ -12,7 +12,7 @@ class ModeloUsuarios extends Model
     protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['nombre', 'ap1', 'ap2', 'telefono', 'email', 'pass', 'tipo'];
+    protected $allowedFields    = ['uid','nombre', 'ap1', 'ap2', 'telefono', 'email', 'pass', 'tipo'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;

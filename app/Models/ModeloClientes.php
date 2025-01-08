@@ -43,4 +43,7 @@ class ModeloClientes extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+    public function getGasto($uid) {
+        return $this->where('uid', $uid)->findColumn('gastado')[0];
+    }
 }
