@@ -17,6 +17,9 @@ $routes->post('/Signup', 'CRegistroUsuario::index');
 $routes->get('/Unidades', "CUnidades::index");
 $routes->get('/Unidades/(:any)', 'CUnidades::unidad/$1');
 $routes->get('/Comprar/(:any)', 'CVentas::comprar/$1');
+/*VENDEDOR*/
+//VENTAS
+$routes->get('/admin/Ventas', "CVentas::tramitar");
 /*ADMIN*/
 //USUARIOS
 $routes->get('/admin/Usuarios', "CUsuarios::index");

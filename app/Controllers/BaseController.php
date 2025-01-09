@@ -79,4 +79,20 @@ abstract class BaseController extends Controller
             return $views;
         }
     }
+
+    public function autentificar($level) {
+        if($level === 0) {
+            if(!isset($_SESSION["admin"])) {
+                return false;
+            }
+        }
+
+        if($level === 1) {
+            if(!isset($_SESSION["vendedor"])) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

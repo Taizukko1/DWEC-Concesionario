@@ -14,7 +14,8 @@ class CVentas extends BaseController
     protected $modeloVentas;
     protected $modeloUnidades;
     protected $modeloCoches;
-    public function __construct() {
+    public function __construct()
+    {
         $this->modeloVentas = new ModeloVentas();
         $this->modeloUnidades = new ModeloUnidades();
         $this->modeloCoches = new ModeloCoches();
@@ -25,7 +26,8 @@ class CVentas extends BaseController
         return $this->cargar_vista('pages/admin/vventas', $data);
     }
 
-    public function comprar($matricula) {
+    public function comprar($matricula)
+    {
         $id = $this->modeloUnidades->getUnidad($matricula)[0]->id_coche;
         $data["coche"] = $this->modeloCoches->where('id_coche', $id)->first();
         $this->db->transBegin();
@@ -36,14 +38,17 @@ class CVentas extends BaseController
             ];
             //insert
             $this->modeloVentas->insert($venta);
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             return redirect()->to(site_url("error"));
         }
         $this->db->transComplete();
         return $this->cargar_vista('pages/vcompra', $data);
     }
 
-    public function tramitar() {
-
+    public function tramitar()
+    {
+        if (! $this->autentificar(1)) return redirect()->to(site_url());
+        
+        return $this->cargar_vista('pages/admin/vvalidarcompra', []);
     }
 }
