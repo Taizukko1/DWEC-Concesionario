@@ -36,11 +36,12 @@ class CUsuarios extends BaseController
                 $data = $this->request->getPost();
                 $datos['form'] = $data;
                 if ($this->validateData($data, [
+                    'dni' => 'required|min_length[9]|max_length[9]',
                     'nombre' => 'required|min_length[3]|max_length[75]',
                     'ap1' => 'required|min_length[2]|max_length[75]',
                     'ap2' => 'required|min_length[2]|max_length[75]',
                     'email' => 'required|min_length[3]|max_length[75]',
-                    'telefono' => 'required|min_length[3]|max_length[75]',
+                    'telefono' => 'required|min_length[9]|max_length[9]',
                 ])) {
                     $this->db->transBegin();
                     try {

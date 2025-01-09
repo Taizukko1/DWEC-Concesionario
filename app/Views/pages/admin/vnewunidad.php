@@ -21,10 +21,7 @@
         <th>Año de Fabricacion</th>
         <th>Extras</th>
     </tr>
-    <script>
-        let mySelect = document.querySelector("#modelo");
-    </script>
-
+    <script src="<?php echo base_url("scripts/")?>"></script>
     <tr>
         <th>
             Kilometraje
