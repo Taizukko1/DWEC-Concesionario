@@ -20,6 +20,8 @@ $routes->get('/Comprar/(:any)', 'CVentas::comprar/$1');
 /*VENDEDOR*/
 //VENTAS
 $routes->get('/admin/Ventas', "CVentas::tramitar");
+$routes->get('/admin/Ventas/Aceptar/(:any)', "CVentas::aceptar/$1");
+$routes->get('/admin/Ventas/Cancelar/(:any)', "CVentas::cancelar/$1");
 /*ADMIN*/
 //USUARIOS
 $routes->get('/admin/Usuarios', "CUsuarios::index");
