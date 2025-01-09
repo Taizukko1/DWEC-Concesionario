@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 09, 2025 at 12:58 PM
+-- Generation Time: Jan 09, 2025 at 05:56 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `bd_concesionario`
+-- Database: `concesionario_db`
 --
 
 -- --------------------------------------------------------
@@ -129,8 +129,8 @@ INSERT INTO `usuarios` (`uid`, `email`, `pass`, `tipo`, `ventas`, `gastado`, `dn
 
 CREATE TABLE `ventas` (
   `id_venta` int(5) NOT NULL,
-  `uid_cliente` varchar(9) NOT NULL,
-  `uid_vendedor` varchar(9) DEFAULT NULL,
+  `uid_cliente` int(3) NOT NULL,
+  `uid_vendedor` int(3) DEFAULT NULL,
   `matricula` varchar(7) NOT NULL,
   `fecha_venta` date NOT NULL DEFAULT current_timestamp(),
   `estado` varchar(20) NOT NULL DEFAULT 'en espera'
@@ -141,7 +141,7 @@ CREATE TABLE `ventas` (
 --
 
 INSERT INTO `ventas` (`id_venta`, `uid_cliente`, `uid_vendedor`, `matricula`, `fecha_venta`, `estado`) VALUES
-(1, '15', NULL, 'BTS1554', '2025-01-09', 'en espera');
+(1, 15, NULL, 'BTS1554', '2025-01-09', 'en espera');
 
 --
 -- Indexes for dumped tables
@@ -227,6 +227,14 @@ ALTER TABLE `imagenes`
 --
 ALTER TABLE `unidades`
   ADD CONSTRAINT `unidades_ibfk_1` FOREIGN KEY (`id_coche`) REFERENCES `coches` (`id_coche`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `ventas`
+--
+ALTER TABLE `ventas`
+  ADD CONSTRAINT `ventas_ibfk_1` FOREIGN KEY (`matricula`) REFERENCES `unidades` (`matricula`),
+  ADD CONSTRAINT `ventas_ibfk_2` FOREIGN KEY (`uid_cliente`) REFERENCES `usuarios` (`uid`),
+  ADD CONSTRAINT `ventas_ibfk_3` FOREIGN KEY (`uid_vendedor`) REFERENCES `usuarios` (`uid`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
