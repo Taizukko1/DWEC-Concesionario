@@ -4,8 +4,6 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\ModeloUsuarios;
-use CodeIgniter\HTTP\ResponseInterface;
-
 class CLogin extends BaseController
 {
     protected $modeloUsuarios;
@@ -34,15 +32,15 @@ class CLogin extends BaseController
                 return $this->cargar_vista('pages/vlogin', $data);
             }
             $id = $this->modeloUsuarios->where('email', $email)->findColumn('uid')[0];
-            switch ($this->modeloUsuarios->getTipo($email)) {
+            switch ($this->modeloUsuarios->getTipo($id)) {
                 case 'admin':
                     $this->session->set('admin', ["id" => $id,"commits" => []]);
                     break;
                 case 'vendedor':
-                    $this->session->set('vendedor', ["id" => $id,"ventas" => 0]);
+                    $this->session->set('vendedor', ["id" => $id,"ventas" => $this->modeloUsuarios->getVentas($id)]);
                     break;
                 default:
-                    $this->session->set('user', ["id" => $id,"gastado" => 0]);
+                    $this->session->set('user', ["id" => $id,"gastado" => $this->modeloUsuarios->getGasto($id)]);
                     break;
             }
             return redirect()->to(site_url());

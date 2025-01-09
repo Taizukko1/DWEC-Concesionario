@@ -3,9 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\ModeloClientes;
 use App\Models\ModeloUsuarios;
-use App\Models\ModeloVendedores;
 use Exception;
 
 class CRegistroUsuario extends BaseController
@@ -15,7 +13,6 @@ class CRegistroUsuario extends BaseController
     public function __construct()
     {
         $this->modeloUsuarios = new ModeloUsuarios();
-        $this->modeloClientes = new ModeloClientes();
     }
     public function index()
     {
@@ -32,11 +29,6 @@ class CRegistroUsuario extends BaseController
                 }
 
                 $this->modeloUsuarios->insert($formData);
-                $cliente = [
-                    "uid" => $this->modeloUsuarios->selectMax('uid')->first(),
-                    "gastado" => 0
-                ];
-                $this->modeloClientes->insert($cliente);
             } catch (Exception $e) {
                 return $this->cargar_vista('pages/vregistro', ["err" => $e->getMessage()]);
             }

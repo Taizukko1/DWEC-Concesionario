@@ -29,5 +29,9 @@
         <h2 class="col-9 mt-3"><?php echo $coche->marca . " " . $coche->modelo . " " . $coche->anio_fabricacion; ?></h2>
         <h2 class="col-3 mt-3"><?php echo $unidad->precio; ?>€</h2>
     </div>
-    <a class="compra w-25 float-end text-center" href="<?php echo site_url("Comprar/") . $unidad->matricula; ?>" <?php if (!isset($_SESSION["user"])) echo "disabled"; ?>>Comprar Ahora</a>
+    <?php if(isset($_SESSION['user'])) {?>
+        <a class="compra w-25 float-end text-center" href="<?php echo site_url("Comprar/") . $unidad->matricula; ?>" <?php if (!isset($_SESSION["user"])) echo "disabled"; ?>>Comprar Ahora</a>
+    <?php } else {?>
+        <a class="compra w-25 float-end text-center" href="<?php echo site_url("Login"); ?>">Registrate</a>
+        <?php }?>
 </div>

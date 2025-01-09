@@ -44,8 +44,18 @@ class ModeloUsuarios extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-    function getTipo($email)
+    function getTipo($id)
     {
-        return $this->where('email', $email)->findColumn('tipo')[0];
+        return $this->where('uid', $id)->findColumn('tipo')[0];
+    }
+
+    function getVentas($uid)
+    {
+        return $this->where('uid', $uid)->findColumn('ventas')[0];
+    }
+
+    function getGasto($uid)
+    {
+        return $this->where('uid', $uid)->findColumn('gastado')[0];
     }
 }

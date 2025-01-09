@@ -1,3 +1,10 @@
+<?php 
+$user_type = "";
+if (isset($_SESSION['admin'])) { 
+    $user_type = "ADMIN";
+} else if(isset($_SESSION['vendedor'])) {
+    $user_type = "VENDEDOR";
+}?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,9 +24,7 @@
                 CCJ
             </h1>
 
-            <?php if (isset($_SESSION['admin'])) { ?>
-                <h1>ADMIN</h1>
-            <?php } ?>
+                <h1><?php echo $user_type?></h1>
 
             <?php if (isset($_SESSION['user']) || isset($_SESSION['vendedor']) || isset($_SESSION['admin'])) { ?>
                 <a href="<?php echo site_url() . "/Logout" ?>">Logout</a>
@@ -33,10 +38,10 @@
                     <ul class="p-0">
                         <li><a href="<?php echo site_url() ?>">Home</a></li>
                         <?php if (!isset($_SESSION['vendedor']) && !isset($_SESSION['admin'])) { ?>
-                            <li><a href="<?php echo site_url() . "/Unidades" ?>">Nuestros Coches</a></li>
+                            <li><a href="<?php echo site_url("Unidades") ?>">Nuestros Coches</a></li>
                         <?php } ?>
                         <?php if (isset($_SESSION['vendedor'])) { ?>
-                            <li><a href="#">Gestion Ventas</a></li>
+                            <li><a href="<?php echo site_url("admin/Ventas") ?>">Gestion Ventas</a></li>
                         <?php } ?>
 
                         <?php if (isset($_SESSION['admin'])) { ?>

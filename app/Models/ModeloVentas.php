@@ -6,13 +6,13 @@ use CodeIgniter\Model;
 
 class ModeloVentas extends Model
 {
-    protected $table            = 'modeloventas';
-    protected $primaryKey       = 'id';
+    protected $table            = 'ventas';
+    protected $primaryKey       = 'id_venta';
     protected $useAutoIncrement = true;
-    protected $returnType       = 'array';
+    protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = ['uid_cliente', 'uid_vendedor', 'matricula', 'fecha_venta', 'estado'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;

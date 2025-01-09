@@ -3,20 +3,14 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\ModeloClientes;
 use App\Models\ModeloUsuarios;
-use App\Models\ModeloVendedores;
 
 class CUsuarios extends BaseController
 {
     protected $modeloUsuarios;
-    protected $modeloVendedores;
-    protected $modeloClientes;
     public function __construct()
     {
         $this->modeloUsuarios = new ModeloUsuarios();
-        $this->modeloVendedores = new ModeloVendedores();
-        $this->modeloClientes = new ModeloClientes();
     }
     public function index()
     {
@@ -55,22 +49,6 @@ class CUsuarios extends BaseController
                             'telefono' => $data['telefono']
                         ];
                         $this->modeloUsuarios->insert($usuario);
-                        $lastID = $this->modeloUsuarios->selectMax('uid')->first();
-                        if ($usuario["tipo"] === 'vendedor') {
-                            $vendedor = [
-                                'uid' => $lastID->uid,
-                                'ventas' => 0
-                            ];
-                            $this->modeloVendedores->insert($vendedor);
-                        }
-
-                        if ($usuario["tipo"] === 'cliente') {
-                            $cliente = [
-                                'uid' => $lastID->uid,
-                                'gastado' => 0
-                            ];
-                            $this->modeloClientes->insert($cliente);
-                        }
                         $this->db->transCommit();
                     } catch (\PDOException $e) {
                         $this->db->transRollback();
@@ -117,10 +95,10 @@ class CUsuarios extends BaseController
         $usuario = $this->modeloUsuarios->where('uid', $uid)->first();
         //agregar atributo de tipo (vendedor/cliente)
         if ($usuario->tipo === 'vendedor') {
-            $usuario->value = $this->modeloVendedores->getVentas($uid);
+            $usuario->value = $this->modeloUsuarios->getVentas($uid);
             $usuario->attr = 'ventas';
         } else if ($usuario->tipo === 'cliente') {
-            $usuario->value = $this->modeloClientes->getGasto($uid);
+            $usuario->value = $this->modeloUsuarios->getGasto($uid);
             $usuario->attr = 'gastado';
         }
         $data['edited'] = $usuario;
@@ -132,12 +110,6 @@ class CUsuarios extends BaseController
     {
         //Encontrar usuario
         $usuario = $this->modeloUsuarios->where('uid', $uid)->first();
-        //Borrar Vendedor/Cliente
-        if ($usuario->tipo === 'cliente') {
-            $this->modeloClientes->where('uid', $uid)->delete();
-        } else if ($usuario->tipo === 'vendedor') {
-            $this->modeloVendedores->where('uid', $uid)->delete();
-        }
         //Borrar Usuario
         $this->modeloUsuarios->where('uid', $uid)->delete();
         return redirect()->to(site_url("admin/Usuarios"));
