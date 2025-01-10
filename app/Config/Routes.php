@@ -31,3 +31,6 @@ $routes->post('/admin/Usuarios/Add', "CUsuarios::new");
 $routes->get('/admin/Usuarios/Borrar/(:any)', "CUsuarios::delete/$1");
 $routes->get('/admin/Usuarios/Actualizar/(:any)', "CUsuarios::update/$1");
 $routes->post('/admin/Usuarios/Actualizar/(:any)', "CUsuarios::update/$1");
+//UNIDADES
+$routes->get('/admin/Unidades', "CUnidades::admin");
+$routes->post('/admin/Unidades', "CUnidades::rebaja");
