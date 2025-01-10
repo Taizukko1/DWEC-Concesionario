@@ -82,7 +82,8 @@ class CUnidades extends BaseController
             } catch (ReflectionException $e) {
                 return redirect()->to(site_url());
             }
+            $this->db->transCommit();
         }
-        //return $this->admin();
+        return $this->admin();
     }
 }

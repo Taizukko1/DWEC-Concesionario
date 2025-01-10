@@ -11,7 +11,7 @@ class ModeloUnidades extends Model
     protected $useAutoIncrement = true;
     protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
-    protected $protectFields    = true;
+    //protected $protectFields    = true;
     protected $allowedFields    = ['matricula', 'id_coche', 'kilometraje', 'color', 'precio'];
 
     protected bool $allowEmptyInserts = false;

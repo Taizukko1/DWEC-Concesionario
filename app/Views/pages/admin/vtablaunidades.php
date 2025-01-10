@@ -49,7 +49,7 @@ $modeloImagenes = new ModeloImagenes();
                 </td>
 
                 <td>
-                <?php echo $disponible->kilometraje; ?>€
+                <?php echo $disponible->precio; ?>€
                 </td>
             </tr>
         <?php } ?>
