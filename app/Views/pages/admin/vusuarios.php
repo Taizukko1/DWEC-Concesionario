@@ -1,11 +1,3 @@
-<?php
-
-use App\Models\ModeloClientes;
-use App\Models\ModeloVendedores;
-
-$modeloVendedor = new ModeloVendedores();
-$modeloCliente = new ModeloClientes();
-?>
 <table class="table">
     <tr>
         <td class="table-warning">
@@ -78,17 +70,17 @@ $modeloCliente = new ModeloClientes();
                 <?php if ($usuario->tipo != 'admin') { ?>
                     <?php if ($usuario->tipo === 'vendedor') { ?>
                         <th>Ventas</th>
-                        <td><?php echo $modeloVendedor->getVentas($usuario->uid); ?></td>
+                        <td><?php echo $usuario->ventas; ?></td>
                     <?php } ?>
                     <?php if ($usuario->tipo === 'cliente') { ?>
                         <th>Gastado</th>
-                        <td><?php echo $modeloCliente->getGasto($usuario->uid); ?>€</td>
+                        <td><?php echo $usuario->gastado; ?>€</td>
                     <?php } ?>
-                    <td><a href="<?php echo site_url('admin/Usuarios/Borrar/') . $usuario->uid?>"><i class="bi bi-x-circle-fill tex-danger"></i></a></td>
-                    <td><a href="<?php echo site_url('admin/Usuarios/Actualizar/') . $usuario->uid?>"><i class="bi bi-pencil"></i></a></td>
+                    <td><a href="<?php echo site_url('admin/Usuarios/Actualizar/') . $usuario->uid?>"><i class="bi bi-pencil"></i> Editar</a></td>
+                    <td><a href="<?php echo site_url('admin/Usuarios/Borrar/') . $usuario->uid?>"><i class="bi bi-x-circle-fill text-danger"></i> Eliminar</a></td>
                 <?php } ?>
             </tr>
         <?php } ?>
     </tbody>
 </table>
-<a href="<?php echo site_url('admin/Usuarios/Add') ?>"><i class="bi bi-plus-circle-fill"></i></a>
+<a href="<?php echo site_url('admin/Usuarios/Add') ?>"><i class="bi bi-plus-circle-fill"></i> Nuevo Usuario</a>

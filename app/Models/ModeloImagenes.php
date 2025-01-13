@@ -12,7 +12,7 @@ class ModeloImagenes extends Model
     protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = ['matricula', 'url'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;

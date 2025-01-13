@@ -91,14 +91,15 @@ class CVentas extends BaseController
             $this->modeloUsuarios->update($vendedor->uid, $vendedor);
             $cliente->gastado += $unidad->precio;
             $this->modeloUsuarios->update($cliente->uid, $cliente);
-            $this->modeloUnidades->where('matricula', $unidad->matricula)->delete();
+            //Borrar unidad vendida de BD
+            //$this->modeloUnidades->where('matricula', $unidad->matricula)->delete();
             $data["aceptar"] = "Venta aceptada exitosamente!";
         } catch (ReflectionException $e) {
             $this->db->trans_rollback();
             $data["err"] = "Error en la BD al aceptar la venta... " . $e->getMessage();
             return $this->cargar_vista('pages/admin/vvalidarcompra', $data);
         }
-        $this->db->transComplete();
+        $this->db->transCommit();
         return $this->cargar_vista('pages/admin/vvalidarcompra', $data);
     }
 
@@ -110,5 +111,15 @@ class CVentas extends BaseController
         $this->modeloVentas->update($id, $venta);
         $data["cancelar"] = "Venta cancelada correctamente";
         return $this->cargar_vista('pages/admin/vvalidarcompra', $data);
+    }
+
+    public function admin() {
+        $data['ventas'] = $this->modeloVentas->findAll();
+        return $this->cargar_vista('pages/admin/vtablaventas', $data);
+    }
+
+    public function delete() {
+        $this->modeloVentas->where('estado', 'cancelada')->delete();
+        return redirect()->to(site_url('admin/VerVentas'));
     }
 }

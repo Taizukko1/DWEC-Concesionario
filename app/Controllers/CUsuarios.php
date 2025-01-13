@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\ModeloUsuarios;
+use ReflectionException;
 
 class CUsuarios extends BaseController
 {
@@ -103,6 +104,18 @@ class CUsuarios extends BaseController
         }
         $data['edited'] = $usuario;
         $data['usuarios'] = $this->modeloUsuarios->findAll();
+
+        if($this->request->is('post')) {
+            $formData = $this->request->getPost();
+            $this->db->transBegin();
+            try {
+                $this->modeloUsuarios->update($uid, $formData);
+            } catch(ReflectionException $e) {
+                $this->db->transRollback();
+            }
+            $this->db->transCommit();
+            return redirect()->to(site_url('admin/Usuarios'));
+        }
         return $this->cargar_vista(['pages/admin/vusuarios', 'pages/admin/vupdateusuario'], $data);
     }
 

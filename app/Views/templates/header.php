@@ -45,9 +45,9 @@ if (isset($_SESSION['admin'])) {
                         <?php } ?>
 
                         <?php if (isset($_SESSION['admin'])) { ?>
-                            <li><a href="<?php echo site_url('admin/Unidades'); ?>">Gestion Unidades</a></li>
-                            <li><a href="<?php echo site_url('admin/Usuarios'); ?>">Gestion Usuarios</a></li>
-                            <li><a href="#">Ranking</a></li>
+                            <li><a href="<?php echo site_url('admin/Unidades'); ?>">Unidades</a></li>
+                            <li><a href="<?php echo site_url('admin/Usuarios'); ?>">Usuarios</a></li>
+                            <li><a href="<?php echo site_url('admin/VerVentas'); ?>">Ventas</a></li>
                         <?php } ?>
                     </ul>
                 </nav>

@@ -34,3 +34,11 @@ $routes->post('/admin/Usuarios/Actualizar/(:any)', "CUsuarios::update/$1");
 //UNIDADES
 $routes->get('/admin/Unidades', "CUnidades::admin");
 $routes->post('/admin/Unidades', "CUnidades::rebaja");
+$routes->get('/admin/Unidades/Add', "CUnidades::add");
+$routes->post('/admin/Unidades/Add', "CUnidades::add");
+$routes->get('/admin/Unidades/Actualizar/(:any)', "CUnidades::update/$1");
+$routes->post('/admin/Unidades/Actualizar/(:any)', "CUnidades::update/$1");
+$routes->get('/admin/Unidades/Borrar/(:any)', "CUnidades::delete/$1");
+//VENTAS
+$routes->get('/admin/VerVentas', "CVentas::admin");
+$routes->get('/admin/Ventas/Canceladas/Borrar', "CVentas::delete");

@@ -43,4 +43,20 @@ class ModeloVentas extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    public function enVenta($matricula)
+    {
+        $query = $this->where('matricula', $matricula)->where('estado', 'aceptada')->first();
+        $result = $query === null ? true : false;
+        return $result;
+    }
+
+    public function reservadosPorUsuario($id) {
+        $result = $this->distinct()->select('matricula')->where('uid_cliente' , $id)->findAll();
+        $matriculas = [];
+        foreach($result as $r) {
+            $matriculas[] = $r->matricula;
+        }
+        return $matriculas;
+    }
 }
