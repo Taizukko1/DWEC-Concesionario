@@ -12,7 +12,7 @@ class ModeloCoches extends Model
     protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = ['marca', 'modelo', 'anio_fabricacion', 'extras'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
@@ -44,7 +44,8 @@ class ModeloCoches extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-    public function getModelo($id) {
+    public function getModelo($id)
+    {
         return $this->where('id_coche', $id)->first();
     }
 }

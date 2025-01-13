@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Services\EmailService;
 use App\Models\ModeloCoches;
 use App\Models\ModeloUnidades;
 use App\Models\ModeloVentas;
@@ -15,12 +16,14 @@ class CVentas extends BaseController
     protected $modeloUnidades;
     protected $modeloCoches;
     protected $modeloUsuarios;
+    protected $mailer;
     public function __construct()
     {
         $this->modeloVentas = new ModeloVentas();
         $this->modeloUnidades = new ModeloUnidades();
         $this->modeloCoches = new ModeloCoches();
         $this->modeloUsuarios = new ModeloUsuarios();
+        $this->mailer = new EmailService();
     }
     public function index()
     {
@@ -94,6 +97,7 @@ class CVentas extends BaseController
             //Borrar unidad vendida de BD
             //$this->modeloUnidades->where('matricula', $unidad->matricula)->delete();
             $data["aceptar"] = "Venta aceptada exitosamente!";
+            $this->mailer->enviarEmail($cliente->email);
         } catch (ReflectionException $e) {
             $this->db->trans_rollback();
             $data["err"] = "Error en la BD al aceptar la venta... " . $e->getMessage();

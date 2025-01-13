@@ -23,6 +23,7 @@ abstract class BaseController extends Controller
 {
     protected $session;
     protected $db;
+    protected $mailer;
 
     protected $validation;
     /**

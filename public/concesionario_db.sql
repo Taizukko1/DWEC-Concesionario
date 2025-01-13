@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 09, 2025 at 05:56 PM
+-- Generation Time: Jan 13, 2025 at 08:58 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -40,7 +40,8 @@ CREATE TABLE `coches` (
 --
 
 INSERT INTO `coches` (`id_coche`, `marca`, `modelo`, `anio_fabricacion`, `extras`) VALUES
-(1, 'Volkswagen', 'Golf 1.6 TDI', 2019, 'Sensores de aparcamiento traseros,');
+(1, 'Volkswagen', 'Golf 1.6 TDI', 2019, 'Sensores de aparcamiento traseros,'),
+(2, 'Honda', 'Civic', 2005, 'asdasdasd');
 
 -- --------------------------------------------------------
 
@@ -68,7 +69,8 @@ INSERT INTO `imagenes` (`id_img`, `matricula`, `src`) VALUES
 (7, 'BTS1554', 'vw_p16_2029_malaga_2.PNG'),
 (8, 'BTS1554', 'vw_p16_2029_malaga_3.PNG'),
 (9, 'BTS1554', 'vw_p16_2029_malaga_4.PNG'),
-(10, 'BTS1554', 'vw_p16_2029_malaga_5.PNG');
+(10, 'BTS1554', 'vw_p16_2029_malaga_5.PNG'),
+(11, '1414BBY', 'h_c_2005_madrid_1.jpeg');
 
 -- --------------------------------------------------------
 
@@ -89,8 +91,9 @@ CREATE TABLE `unidades` (
 --
 
 INSERT INTO `unidades` (`matricula`, `id_coche`, `color`, `kilometraje`, `precio`) VALUES
+('1414BBY', 2, 'Blanco', 451125, 2000.00),
 ('BTS1554', 1, 'Gris', 142989, 12990.00),
-('GTD4578', 1, 'Blanco', 74, 14200.00);
+('GTD4578', 1, 'Blanco', 74000, 14200.00);
 
 -- --------------------------------------------------------
 
@@ -118,8 +121,9 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`uid`, `email`, `pass`, `tipo`, `ventas`, `gastado`, `dni`, `nombre`, `ap1`, `ap2`, `telefono`) VALUES
 (1, 'admin@ccj.com', '$2y$10$zL7aCC.8WemiHZpHA1R3M.D1dbtlEPNSTeMazSMs9hMmJGHCAuFtO', 'admin', 0, 0, '58011368D', 'Andoni', 'Sanchez', 'Aceña', '684548698'),
-(11, 'jane.doe@mail.com', '$2y$10$YcB0zkRL219y1Q074gKGu.TyrQLtS8yBEYRO4U5TEx.MqR2jDw.06', 'vendedor', 0, 0, '54879654F', 'Jane', 'Doe', 'Smith', '654789123'),
-(15, 'test@test.com', '$2y$10$YcB0zkRL219y1Q074gKGu.TyrQLtS8yBEYRO4U5TEx.MqR2jDw.06', 'cliente', 0, 0, '00000000A', 'Test', 'de', 'Venta', '111222333');
+(11, 'jane.doe@mail.com', '$2y$10$YcB0zkRL219y1Q074gKGu.TyrQLtS8yBEYRO4U5TEx.MqR2jDw.06', 'vendedor', 1, 0, '54879654F', 'Jane', 'Doe', 'Smith', '654789123'),
+(15, 'test@test.com', '$2y$10$YcB0zkRL219y1Q074gKGu.TyrQLtS8yBEYRO4U5TEx.MqR2jDw.06', 'cliente', 0, 12990, '00000000A', 'Juan', 'Garcia', 'Schulz', '111222333'),
+(20, 'laudomsan@mail.com', '$2y$10$Oqsl0wcZTzjd0xzvj7bixuL1qGP7fWVAfHgkQ4pZTm18KQUW0Sg7u', 'cliente', 0, 0, '58454789G', 'Laura', 'Domingo', 'Sanchez', '789456123');
 
 -- --------------------------------------------------------
 
@@ -141,7 +145,7 @@ CREATE TABLE `ventas` (
 --
 
 INSERT INTO `ventas` (`id_venta`, `uid_cliente`, `uid_vendedor`, `matricula`, `fecha_venta`, `estado`) VALUES
-(1, 15, NULL, 'BTS1554', '2025-01-09', 'en espera');
+(3, 15, 11, 'BTS1554', '2025-01-09', 'aceptada');
 
 --
 -- Indexes for dumped tables
@@ -192,25 +196,25 @@ ALTER TABLE `ventas`
 -- AUTO_INCREMENT for table `coches`
 --
 ALTER TABLE `coches`
-  MODIFY `id_coche` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_coche` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `imagenes`
 --
 ALTER TABLE `imagenes`
-  MODIFY `id_img` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_img` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `uid` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `uid` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `ventas`
 --
 ALTER TABLE `ventas`
-  MODIFY `id_venta` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_venta` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables

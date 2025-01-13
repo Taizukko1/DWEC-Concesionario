@@ -73,15 +73,15 @@ class CUnidades extends BaseController
                 if (sizeof($data['form']['imagenes']) > 0) {
                     $unidad = [
                         "matricula" => $data['form']["matricula"],
-                        "matricula" => $data['form']["id_coche"],
-                        "matricula" => $data['form']["kilometraje"],
-                        "matricula" => $data['form']["color"],
-                        "matricula" => $data['form']["precio"],
+                        "id_coche" => $data['form']["id_coche"],
+                        "kilometraje" => $data['form']["kilometraje"],
+                        "color" => $data['form']["color"],
+                        "precio" => $data['form']["precio"],
                     ];
                     $this->modeloUnidades->insert($unidad);
                     foreach ($data['form']['imagenes'] as $url) {
                         $imagen = [
-                            "matricula" => $data['form']['matricula'],
+                            "matricula" => $unidad['matricula'],
                             "url" => $url
                         ];
                         $this->modeloImagenes->insert($imagen);
@@ -95,19 +95,41 @@ class CUnidades extends BaseController
                 return $this->cargar_vista('pages/admin/vnewunidad', $data);
             }
             $this->db->transCommit();
+            return redirect()->to(site_url('admin/Unidades'));
         }
         return $this->cargar_vista('pages/admin/vnewunidad', $data);
     }
 
     public function update($matricula)
     {
-        $data['modelos'] = $this->modeloCoches->findAll();
+        $modelosQuery = $this->modeloCoches->findAll();
+        $data['modelos'] = [];
+        foreach ($modelosQuery as $qr) {
+            $data['modelos'][$qr->id_coche] = $qr->marca . " " . $qr->modelo . " " . $qr->anio_fabricacion;
+        }
         $data['unidad'] = $this->modeloUnidades->where('matricula', $matricula)->first();
         if ($this->request->is('post')) {
             $formData = $this->request->getPost();
             $this->db->transBegin();
             try {
-                $this->modeloUnidades->update($matricula, $formData);
+                $unidad = [
+                    "matricula" => $formData["matricula"],
+                    "id_coche" => $formData["id_coche"],
+                    "kilometraje" => $formData["kilometraje"],
+                    "color" => $formData["color"],
+                    "precio" => $formData["precio"],
+                ];
+                $this->modeloUnidades->update($matricula, $unidad);
+
+                if(sizeof($formData["imagenes"]) > 0) {
+                    foreach($formData["imagenes"] as $src) {
+                        $img = [
+                            "matricula" => $unidad["matricula"],
+                            "src" => $src
+                        ];
+                        $this->modeloImagenes->insert($img);
+                    }
+                }
             } catch (ReflectionException $e) {
                 $this->db->transRollback();
                 $data['err'] = "Error al actualizar BD: " . $e->getMessage();
@@ -154,5 +176,31 @@ class CUnidades extends BaseController
             $this->db->transCommit();
         }
         return $this->admin();
+    }
+
+    public function addModelo()
+    {
+        if ($this->request->is('post')) {
+            $this->db->transBegin();
+            try {
+                $formData = $this->request->getPost();
+                $exists = $this
+                    ->modeloCoches
+                    ->where('marca', $formData['marca'])
+                    ->where('modelo', $formData['modelo'])
+                    ->where('anio_fabricacion', $formData['anio_fabricacion'])
+                    ->first();
+                if ($exists != null) {
+                    throw new Exception("Ya existe ese modelo");
+                }
+                $this->modeloCoches->insert($formData);
+            } catch (Exception $e) {
+                $data['err'] = $e->getMessage();
+                $this->db->transRollback();
+                return $this->cargar_vista('pages/admin/vnewmodelo', $data);
+            }
+            $this->db->transCommit();
+        }
+        return $this->cargar_vista('pages/admin/vnewmodelo', []);
     }
 }

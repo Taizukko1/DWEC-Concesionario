@@ -39,6 +39,9 @@ $routes->post('/admin/Unidades/Add', "CUnidades::add");
 $routes->get('/admin/Unidades/Actualizar/(:any)', "CUnidades::update/$1");
 $routes->post('/admin/Unidades/Actualizar/(:any)', "CUnidades::update/$1");
 $routes->get('/admin/Unidades/Borrar/(:any)', "CUnidades::delete/$1");
+
+$routes->get('/admin/Unidades/Modelo', "CUnidades::addModelo");
+$routes->post('/admin/Unidades/Modelo', "CUnidades::addModelo");
 //VENTAS
 $routes->get('/admin/VerVentas', "CVentas::admin");
 $routes->get('/admin/Ventas/Canceladas/Borrar', "CVentas::delete");

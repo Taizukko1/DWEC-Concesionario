@@ -1,7 +1,7 @@
 <div id="login">
-<?php
-echo form_open();
-?>
+    <?php
+    echo form_open();
+    ?>
 
 
     <table id="log-table" class="w-75 mx-auto">

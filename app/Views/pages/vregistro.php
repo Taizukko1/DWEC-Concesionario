@@ -1,8 +1,8 @@
 <h2 class="text-center">Registro</h2>
 <?php
-$values = ['dni'=>"", 'nombre'=>"", 'ap1'=>"", 'ap2'=>"", 'email'=>"", 'telefono'=>""]; 
-if(isset($form)) {
-$values = $form;
+$values = ['dni' => "", 'nombre' => "", 'ap1' => "", 'ap2' => "", 'email' => "", 'telefono' => ""];
+if (isset($form)) {
+    $values = $form;
 }
 echo form_open(); ?>
 
@@ -25,10 +25,10 @@ echo form_open(); ?>
 
     <tr>
         <th>Email</th>
-        <td><?php echo form_input('email',$values['email'], ["placeholder" => "user@mail.com", "class" => "form-input", "type" => "email"]); ?></td>
+        <td><?php echo form_input('email', $values['email'], ["placeholder" => "user@mail.com", "class" => "form-input", "type" => "email"]); ?></td>
 
         <th>Telefono</th>
-        <td><?php echo form_input('telefono',$values['telefono'], ["placeholder" => "Telefono", "class" => "form-input"]); ?></td>
+        <td><?php echo form_input('telefono', $values['telefono'], ["placeholder" => "Telefono", "class" => "form-input"]); ?></td>
     </tr>
 
     <tr>
